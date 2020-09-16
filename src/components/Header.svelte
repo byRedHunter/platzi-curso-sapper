@@ -1,11 +1,18 @@
 <script>
+  import {goto} from '@sapper/app'
+  import {likeCount} from '../store/store.js'
+  export let segment
 
-  import {likeCount} from '../store/store.js'</script>
+  const navigateHome = async () => {
+    await goto('/')
+  }
+</script>
 
 <style>
   .Header {
     background-color: white;
     position: fixed;
+    top: 0;
     width: 100%;
   }
   .Header-container {
@@ -58,13 +65,20 @@
     top: 0;
     left: 0;
   }
+
+  .fa-user-alt {
+    cursor: pointer;
+  }
+  [aria-current] i {
+    color: #bc1888;
+  }
 </style>
 
 <div class="Header">
   <div class="Header-container">
     <div class="Header-content">
       <div class="Header-logo">
-        <h1>Pugstagram</h1>
+        <h1 on:click={navigateHome}>Pugstagram</h1>
       </div>
   
       <div class="Header-nav">
@@ -75,7 +89,9 @@
           </li>
   
           <li>
-            <i class="fas fa-user-alt"></i>
+            <a aria-current={segment === 'profile' ? 'page' : undefined} href="profile" rel="prefetch">
+              <i class="fas fa-user-alt"></i>
+            </a>
           </li>
         </ul>
       </div>
